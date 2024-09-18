@@ -27,6 +27,8 @@ class APETokenizer:
             self.unk_token: 3,
             self.mask_token: 4,
         }
+        self.vocabulary = dict(self.special_tokens)
+        self.update_reverse_vocabulary()
 
     @property
     def bos_token_id(self):
@@ -334,6 +336,21 @@ class APETokenizer:
                 self.vocabulary.get(token, self.vocabulary[self.unk_token])
                 for token in tokens
             ]
+            
+    def update_reverse_vocabulary(self):
+        """Updates the reverse vocabulary based on the current state of the vocabulary."""
+        # Create a reverse mapping from IDs to tokens
+        self.reverse_vocabulary = {v: k for k, v in self.vocabulary.items()}
+
+    def convert_ids_to_tokens(self, token_ids):
+        """
+        Converts a sequence of token IDs back to a list of string tokens.
+
+        :param token_ids: List[int], a list of token IDs.
+        :return: List[str], a list of string tokens corresponding to the token IDs.
+        """
+        # Map each token ID to its corresponding string token
+        return [self.reverse_vocabulary.get(token_id, self.unk_token) for token_id in token_ids]
 
     def encode(self, text, padding=False, max_length=None, add_special_tokens=False):
         """
@@ -409,6 +426,8 @@ class APETokenizer:
     def load_vocabulary(self, file_path):
         with open(file_path, "r", encoding="utf_8") as f:
             self.vocabulary = json.load(f)
+        
+        self.update_reverse_vocabulary()
         # with open(f"{file_path.rstrip('.json')}_freq.json", "r", encoding="utf_8") as f:
         #     self.vocabulary_frequency = json.load(f)
 
