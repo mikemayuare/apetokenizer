@@ -2,6 +2,10 @@
 
 **APE Tokenizer (Atom Pair Encoding Tokenizer)** is a tokenizer designed to handle SMILES and SELFIES molecular representations. It works similarly to BPE (Byte Pair Encoding), while ensuring that tokens preserve chemical information, making it ideal for molecular data. This tokenizer is fully compatible with the Hugging Face `transformers` library and can be easily integrated into any model that uses tokenizers.
 
+## Citation
+
+Leon, M., Perezhohin, Y., Peres, F. et al. Comparing SMILES and SELFIES tokenization for enhanced chemical language modeling. Sci Rep 14, 25016 (2024). [https://doi.org/10.1038/s41598-024-76440-8](https://doi.org/10.1038/s41598-024-76440-8)
+
 ## Features
 
 - **Hugging Face `transformers` compatible**: Integrates seamlessly with models in the `transformers` library.
@@ -170,3 +174,4 @@ print(outputs)
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
